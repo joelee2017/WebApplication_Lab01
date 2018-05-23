@@ -18,6 +18,10 @@ namespace WebApplication_Lab01.Controllers
             return View(query);
         }
 
-
+        public ActionResult Details(int id =0)
+        {
+            var query = db.Products.Find(id);
+            return View(query);
+        }
     }
 }
