@@ -43,6 +43,7 @@ namespace WebApplication_Lab01.Controllers
             {
                 db.Products.Add(products);
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
             return View(products);
@@ -52,6 +53,10 @@ namespace WebApplication_Lab01.Controllers
         public ActionResult Edit(int id = 0)
         {
             Products products = db.Products.Find(id);
+            if(products == null)
+            {
+                return HttpNotFound();
+            }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
             return View(products);
         }
@@ -59,8 +64,12 @@ namespace WebApplication_Lab01.Controllers
         [HttpPost]
         public ActionResult Edit(Products products)
         {
-            db.Entry(products).State = EntityState.Modified;
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                db.Entry(products).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }           
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
             return View(products);
         }
