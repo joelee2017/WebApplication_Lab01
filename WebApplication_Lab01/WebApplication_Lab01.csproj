@@ -183,6 +183,7 @@
     <Compile Include="Models\Products.cs">
       <DependentUpon>NorthWind.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repository\ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

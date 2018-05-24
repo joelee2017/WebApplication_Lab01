@@ -5,7 +5,18 @@ using System.Web;
 
 namespace WebApplication_Lab01.Models.Interface
 {
-    public class IProductRepository
+    public interface IProductRepository
     {
+        void Create(Products instance);
+
+        void Update(Products instance);
+
+        void Delete(Products instance);
+
+        Products Get(int productID);
+
+        IQueryable<Products> GetAll();
+
+        void SaveChanges();
     }
 }
