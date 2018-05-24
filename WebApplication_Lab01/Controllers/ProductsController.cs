@@ -15,7 +15,7 @@ namespace WebApplication_Lab01.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(x => x.Categories).OrderBy(x => x.ProductID);
+            var products = db.Products.Include(x => x.Categories).OrderByDescending(x => x.ProductID);
             return View(products.ToList());
         }
 
