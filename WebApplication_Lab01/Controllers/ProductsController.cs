@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,14 +15,81 @@ namespace WebApplication_Lab01.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var query = db.Products.OrderBy(x => x.ProductID).ToList();
-            return View(query);
+            var products = db.Products.Include(x => x.Categories).OrderBy(x => x.ProductID);
+            return View(products.ToList());
         }
 
         public ActionResult Details(int id =0)
         {
-            var query = db.Products.Find(id);
-            return View(query);
+            Products products = db.Products.Find(id);
+            if(products == null)
+            {
+                return HttpNotFound();
+            }
+            return View(products);
+        }
+        //=============================================================================
+
+        public ActionResult Create()
+        {
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Products products)
+        {
+            if(ModelState.IsValid)
+            {
+                db.Products.Add(products);
+                db.SaveChanges();
+            }
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
+            return View(products);
+        }
+        //==============================================================================
+
+        public ActionResult Edit(int id = 0)
+        {
+            Products products = db.Products.Find(id);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
+            return View(products);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Products products)
+        {
+            db.Entry(products).State = EntityState.Modified;
+            db.SaveChanges();
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
+            return View(products);
+        }
+        //==============================================================================
+        
+        public ActionResult Delete(int id =0)
+        {
+            Products products = db.Products.Find(id);
+            if(products == null)
+            {
+                return HttpNotFound();
+            }
+            return View(products);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Products products = db.Products.Find(id);
+            db.Products.Remove(products);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        //==============================================================================
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
