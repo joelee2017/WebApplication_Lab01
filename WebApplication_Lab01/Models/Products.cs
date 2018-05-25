@@ -11,18 +11,37 @@ namespace WebApplication_Lab01.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Products
     {
         public int ProductID { get; set; }
+
+        [Display(Name = "ProductName")]
         public string ProductName { get; set; }
+
+        [Display(Name = "SupplierID")]
         public Nullable<int> SupplierID { get; set; }
+
+        [Display(Name = "CategoryID")]
         public Nullable<int> CategoryID { get; set; }
+
+        [Display(Name = "QuantityPerUnit")]
         public string QuantityPerUnit { get; set; }
+
+        [Display(Name = "UnitPrice")]
         public Nullable<decimal> UnitPrice { get; set; }
+
+        [Display(Name = "UnitsInStock")]
         public Nullable<short> UnitsInStock { get; set; }
+
+        [Display(Name = "UnitsOnOrder")]
         public Nullable<short> UnitsOnOrder { get; set; }
+
+        [Display(Name = "ReorderLevel")]
         public Nullable<short> ReorderLevel { get; set; }
+
+        [Display(Name = "Discontinued")]
         public bool Discontinued { get; set; }
     
         public virtual Categories Categories { get; set; }
