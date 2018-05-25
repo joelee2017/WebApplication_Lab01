@@ -27,5 +27,6 @@ namespace WebApplication_Lab01.Models
     
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<Suppliers> Suppliers { get; set; }
     }
 }

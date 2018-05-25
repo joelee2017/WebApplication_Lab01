@@ -32,7 +32,8 @@ namespace WebApplication_Lab01.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
+            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName");
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");           
             return View();
         }
 
@@ -45,8 +46,9 @@ namespace WebApplication_Lab01.Controllers
                 db.Products.Add(products);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }            
-             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
+            }
+            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
             return View(products);
         }
         //==============================================================================
@@ -58,6 +60,7 @@ namespace WebApplication_Lab01.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
             return View(products);
         }
@@ -70,7 +73,8 @@ namespace WebApplication_Lab01.Controllers
                 db.Entry(products).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }           
+            }
+            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
             return View(products);
         }
