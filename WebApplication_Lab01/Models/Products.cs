@@ -17,30 +17,39 @@ namespace WebApplication_Lab01.Models
     {
         public int ProductID { get; set; }
 
+        [Required]
         [Display(Name = "ProductName")]
         public string ProductName { get; set; }
 
+        [Required]
         [Display(Name = "SupplierID")]
         public Nullable<int> SupplierID { get; set; }
 
+        [Required]
         [Display(Name = "CategoryID")]
         public Nullable<int> CategoryID { get; set; }
 
+        [Required]
         [Display(Name = "QuantityPerUnit")]
         public string QuantityPerUnit { get; set; }
 
+        [Required]
         [Display(Name = "UnitPrice")]
         public Nullable<decimal> UnitPrice { get; set; }
 
+        [Required]
         [Display(Name = "UnitsInStock")]
         public Nullable<short> UnitsInStock { get; set; }
 
+        [Required]
         [Display(Name = "UnitsOnOrder")]
         public Nullable<short> UnitsOnOrder { get; set; }
 
+        [Required]
         [Display(Name = "ReorderLevel")]
         public Nullable<short> ReorderLevel { get; set; }
 
+        [Required]
         [Display(Name = "Discontinued")]
         public bool Discontinued { get; set; }
     

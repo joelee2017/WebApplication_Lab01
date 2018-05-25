@@ -39,13 +39,14 @@ namespace WebApplication_Lab01.Controllers
         [HttpPost]
         public ActionResult Create(Products products)
         {
-            if(ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
                 db.Products.Add(products);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
+            }            
+             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
             return View(products);
         }
         //==============================================================================
