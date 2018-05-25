@@ -14,12 +14,19 @@ namespace WebApplication_Lab01.Controllers
         NorthwindEntities db = new NorthwindEntities();
 
         // GET: Products
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.ProductNameSortParm = String.IsNullOrEmpty(sortOrder) ?  "ProductName_desc" : "";
             ViewBag.UnitPriceSortParm = sortOrder == "UnitPrice" ? "UnitPrice_desc" : "UnitPrice";
 
             IQueryable<Products> result = db.Products;
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result = db.Products.Where(s => s.ProductName.Contains(searchString));
+            }
+
             switch (sortOrder)
             {
                 case "ProductName_desc":

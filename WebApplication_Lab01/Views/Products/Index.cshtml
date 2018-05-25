@@ -5,6 +5,13 @@
 }
 
 <h2>Index</h2>
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search">
+    </p>
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,10 +19,12 @@
 <table class="table">    
     <tr>
         <th>
-            @Html.ActionLink("ProductName", "Index", new { sortOrder = ViewBag.ProductNameSortParm })
+            @Html.ActionLink("ProductName", "Index", new { sortOrder = ViewBag.ProductNameSortParm,
+                                                            currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("UnitPrice", "Index", new { sortOrder = ViewBag.UnitPriceSortParm })
+            @Html.ActionLink("UnitPrice", "Index", new { sortOrder = ViewBag.UnitPriceSortParm,
+                                                            currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SupplierID)
