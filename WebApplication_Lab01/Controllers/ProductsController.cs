@@ -14,8 +14,19 @@ namespace WebApplication_Lab01.Controllers
         NorthwindEntities db = new NorthwindEntities();
 
         // GET: Products
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            if(searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+                ViewBag.CurrentFilter = searchString;
+            }
+
             ViewBag.ProductNameSortParm = String.IsNullOrEmpty(sortOrder) ?  "ProductName_desc" : "";
             ViewBag.UnitPriceSortParm = sortOrder == "UnitPrice" ? "UnitPrice_desc" : "UnitPrice";
 
@@ -42,8 +53,11 @@ namespace WebApplication_Lab01.Controllers
                     result = result.OrderBy(s => s.ProductName);
                     break;
             }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
             //var products = db.Products.Include(x => x.Categories).OrderByDescending(x => x.ProductID);
-            return View(result.ToList());
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Details(int id =0)
