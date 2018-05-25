@@ -23,10 +23,10 @@ namespace WebApplication_Lab01.Models
 
         [Required]
         [Display(Name = "SupplierID")]
+        [StringLength(2, MinimumLength = 2, ErrorMessage = "請輸入 2個數字")]        
         public Nullable<int> SupplierID { get; set; }
 
-        [Required]
-        [Display(Name = "CategoryID")]
+        [Display(Name = "CategoryID")]        
         public Nullable<int> CategoryID { get; set; }
 
         [Required]
