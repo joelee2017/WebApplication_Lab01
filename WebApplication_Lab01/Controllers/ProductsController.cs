@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication_Lab01.Models;
+using PagedList;
 
 namespace WebApplication_Lab01.Controllers
 {
@@ -13,10 +14,29 @@ namespace WebApplication_Lab01.Controllers
         NorthwindEntities db = new NorthwindEntities();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            var products = db.Products.Include(x => x.Categories).OrderByDescending(x => x.ProductID);
-            return View(products.ToList());
+            ViewBag.ProductNameSortParm = String.IsNullOrEmpty(sortOrder) ?  "ProductName_desc" : "";
+            ViewBag.UnitPriceSortParm = sortOrder == "UnitPrice" ? "UnitPrice_desc" : "UnitPrice";
+
+            IQueryable<Products> result = db.Products;
+            switch (sortOrder)
+            {
+                case "ProductName_desc":
+                    result = result.OrderByDescending(s => s.ProductName);
+                    break;
+                case "UnitPrice":
+                    result = result.OrderBy(s => s.UnitPrice);
+                    break;
+                case "UnitPrice_desc":
+                    result = result.OrderByDescending(s => s.UnitPrice);
+                    break;
+                default:
+                    result = result.OrderBy(s => s.ProductName);
+                    break;
+            }
+            //var products = db.Products.Include(x => x.Categories).OrderByDescending(x => x.ProductID);
+            return View(result.ToList());
         }
 
         public ActionResult Details(int id =0)
