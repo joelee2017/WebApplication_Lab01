@@ -9,19 +9,19 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table">    
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ProductName)
+            @Html.ActionLink("ProductName", "Index", new { sortOrder = ViewBag.ProductNameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("UnitPrice", "Index", new { sortOrder = ViewBag.UnitPriceSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SupplierID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.QuantityPerUnit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UnitPrice)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UnitsInStock)
