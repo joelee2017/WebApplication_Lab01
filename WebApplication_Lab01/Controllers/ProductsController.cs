@@ -23,9 +23,9 @@ namespace WebApplication_Lab01.Controllers
             }
             else
             {
-                searchString = currentFilter;
-                ViewBag.CurrentFilter = searchString;
+                searchString = currentFilter;                
             }
+            ViewBag.CurrentFilter = searchString;
 
             ViewBag.ProductNameSortParm = String.IsNullOrEmpty(sortOrder) ?  "ProductName_desc" : "";
             ViewBag.UnitPriceSortParm = sortOrder == "UnitPrice" ? "UnitPrice_desc" : "UnitPrice";

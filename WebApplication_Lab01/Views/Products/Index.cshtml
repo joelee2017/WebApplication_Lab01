@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<WebApplication_Lab01.Models.Products>*@
-@model PagedList.IPagedList<WebApplication_Lab01.Models.Products>
+﻿@model PagedList.IPagedList<WebApplication_Lab01.Models.Products>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" />
 
@@ -30,25 +29,25 @@
                                                             currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SupplierID)
+            @Html.DisplayNameFor(model => model.First().SupplierID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.QuantityPerUnit)
+            @Html.DisplayNameFor(model => model.First().QuantityPerUnit)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UnitsInStock)
+            @Html.DisplayNameFor(model => model.First().UnitsInStock)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UnitsOnOrder)
+            @Html.DisplayNameFor(model => model.First().UnitsOnOrder)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReorderLevel)
+            @Html.DisplayNameFor(model => model.First().ReorderLevel)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Discontinued)
+            @Html.DisplayNameFor(model => model.First().Discontinued)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Categories.CategoryName)
+            @Html.DisplayNameFor(model => model.First().Categories.CategoryName)
         </th>
         <th></th>
     </tr>
