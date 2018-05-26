@@ -63,7 +63,8 @@ namespace WebApplication_Lab01.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                result = db.Products.Where(s => s.ProductName.Contains(searchString));
+                //抽換  db.Products.Where(s => s.ProductName.Contains(searchString));
+                result = this.productRepository.Search(searchString);
             }
 
             switch (sortOrder)

@@ -11,11 +11,13 @@ namespace WebApplication_Lab01.Models.Interface
 
         void Update(Products instance);
 
-        void Delete(Products instance);
+        void Delete(Products instance);        
 
         Products Get(int productID);
 
         IQueryable<Products> GetAll();
+
+        IQueryable<Products> Search(string productName);
 
         void SaveChanges();
     }

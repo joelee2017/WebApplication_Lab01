@@ -91,5 +91,10 @@ namespace WebApplication_Lab01.Models.Repository
                 }
             }
         }
+
+        public IQueryable<Products> Search(string productName)
+        {
+          return  db.Products.Where(s => s.ProductName.Contains(productName));
+        }
     }
 }
