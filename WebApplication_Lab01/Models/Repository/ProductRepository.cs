@@ -54,7 +54,7 @@ namespace WebApplication_Lab01.Models.Repository
             }
             else
             {
-                db.Entry(instance).State = EntityState.Modified;
+                db.Entry(instance).State = EntityState.Deleted;
                 this.SaveChanges();
             }
         }
