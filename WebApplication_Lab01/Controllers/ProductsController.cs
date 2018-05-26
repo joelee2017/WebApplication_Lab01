@@ -13,6 +13,8 @@ namespace WebApplication_Lab01.Controllers
 {
     public class ProductsController : Controller
     {
+        NorthwindEntities db = new NorthwindEntities();
+
         private IProductRepository productRepository;
         private ICategoryRepository categoryRepository;
         private ISupplierRepository supplierRepository;
