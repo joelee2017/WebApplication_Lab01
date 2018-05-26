@@ -170,7 +170,9 @@
     <Compile Include="Models\Categories.cs">
       <DependentUpon>NorthWind.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Interface\ICategoryRepository.cs" />
     <Compile Include="Models\Interface\IProductRepository.cs" />
+    <Compile Include="Models\Interface\ISupplierRepository.cs" />
     <Compile Include="Models\NorthWind.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -189,7 +191,9 @@
     <Compile Include="Models\Products.cs">
       <DependentUpon>NorthWind.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repository\CategoryRepository.cs" />
     <Compile Include="Models\Repository\ProductRepository.cs" />
+    <Compile Include="Models\Repository\SupplierRepository.cs" />
     <Compile Include="Models\Suppliers.cs">
       <DependentUpon>NorthWind.tt</DependentUpon>
     </Compile>

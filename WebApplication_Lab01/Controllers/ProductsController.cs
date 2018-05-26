@@ -6,12 +6,38 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication_Lab01.Models;
 using PagedList;
+using WebApplication_Lab01.Models.Interface;
+using WebApplication_Lab01.Models.Repository;
 
 namespace WebApplication_Lab01.Controllers
 {
     public class ProductsController : Controller
     {
-        NorthwindEntities db = new NorthwindEntities();
+        private IProductRepository productRepository;
+        private ICategoryRepository categoryRepository;
+        private ISupplierRepository supplierRepository;
+
+        public IEnumerable<Categories> Categories
+        {
+            get
+            {
+                return categoryRepository.GetAll();
+            }
+        }
+        public IEnumerable<Suppliers> Suppliers
+        {
+            get
+            {
+                return supplierRepository.GetAll();
+            }
+        }
+
+        public ProductsController()
+        {
+            this.productRepository = new ProductRepository();
+            this.categoryRepository = new CategoryRepository();
+            this.supplierRepository = new SupplierRepository();
+        }
 
         // GET: Products
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -55,14 +81,14 @@ namespace WebApplication_Lab01.Controllers
             }
 
             int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            //var products = db.Products.Include(x => x.Categories).OrderByDescending(x => x.ProductID);
+            int pageNumber = (page ?? 1);            
             return View(result.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Details(int id =0)
         {
-            Products products = db.Products.Find(id);
+            //抽換 db.Products.Find(id);
+            Products products = this.productRepository.Get(id);
             if(products == null)
             {
                 return HttpNotFound();
@@ -73,8 +99,9 @@ namespace WebApplication_Lab01.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName");
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");           
+            //抽換 db.Suppliers db.Categories
+            ViewBag.SupplierID = new SelectList(this.Suppliers, "SupplierID", "CompanyName");
+            ViewBag.CategoryID = new SelectList(this.Categories, "CategoryID", "CategoryName");           
             return View();
         }
 
@@ -84,25 +111,29 @@ namespace WebApplication_Lab01.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Products.Add(products);
-                db.SaveChanges();
+                //抽換
+                //db.Products.Add(products);
+                //db.SaveChanges();
+
+                this.productRepository.Create(products);
                 return RedirectToAction("Index");
             }
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
+            ViewBag.SupplierID = new SelectList(this.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
+            ViewBag.CategoryID = new SelectList(this.Categories, "CategoryID", "CategoryName", products.CategoryID);
             return View(products);
         }
         //==============================================================================
 
         public ActionResult Edit(int id = 0)
         {
-            Products products = db.Products.Find(id);
+            //抽換 db.Products.Find(id);
+            Products products = this.productRepository.Get(id);
             if(products == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
+            ViewBag.SupplierID = new SelectList(this.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
+            ViewBag.CategoryID = new SelectList(this.Categories, "CategoryID", "CategoryName", products.CategoryID);
             return View(products);
         }
 
@@ -111,19 +142,23 @@ namespace WebApplication_Lab01.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(products).State = EntityState.Modified;
-                db.SaveChanges();
+                //抽換
+                //db.Entry(products).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                this.productRepository.Update(products);
                 return RedirectToAction("Index");
             }
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", products.CategoryID);
+            ViewBag.SupplierID = new SelectList(this.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
+            ViewBag.CategoryID = new SelectList(this.Categories, "CategoryID", "CategoryName", products.CategoryID);
             return View(products);
         }
         //==============================================================================
         
         public ActionResult Delete(int id =0)
         {
-            Products products = db.Products.Find(id);
+            //抽換 db.Products.Find(id);
+            Products products = this.productRepository.Get(id);
             if(products == null)
             {
                 return HttpNotFound();
@@ -134,17 +169,14 @@ namespace WebApplication_Lab01.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Products products = db.Products.Find(id);
-            db.Products.Remove(products);
-            db.SaveChanges();
+            //抽換 db.Products.Find(id);
+            Products products = this.productRepository.Get(id);
+            //db.Products.Remove(products);
+            //db.SaveChanges();
+            this.productRepository.Delete(products);
             return RedirectToAction("Index");
         }
         //==============================================================================
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
     }
 }
