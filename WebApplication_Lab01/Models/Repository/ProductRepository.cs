@@ -91,25 +91,5 @@ namespace WebApplication_Lab01.Models.Repository
                 }
             }
         }
-
-        public IQueryable<Products> Search(string productName)
-        {
-          return  db.Products.Where(s => s.ProductName.Contains(productName));
-        }
-
-        public IQueryable<Products> SortOrder(string sortOrder)
-        {
-            switch (sortOrder)
-            {
-                case "ProductName_desc":
-                    return db.Products.OrderByDescending(s => s.ProductName);
-                case "UnitPrice":
-                    return db.Products.OrderBy(s => s.UnitPrice);
-                case "UnitPrice_desc":
-                    return db.Products.OrderByDescending(s => s.UnitPrice);
-                default:
-                    return  db.Products.OrderBy(s => s.ProductName);
-            }
-        }
     }
 }

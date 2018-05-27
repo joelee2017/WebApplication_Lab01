@@ -194,6 +194,8 @@
     <Compile Include="Models\Repository\CategoryRepository.cs" />
     <Compile Include="Models\Repository\ProductRepository.cs" />
     <Compile Include="Models\Repository\SupplierRepository.cs" />
+    <Compile Include="Models\Service\IProductService.cs" />
+    <Compile Include="Models\Service\ProductService.cs" />
     <Compile Include="Models\Suppliers.cs">
       <DependentUpon>NorthWind.tt</DependentUpon>
     </Compile>

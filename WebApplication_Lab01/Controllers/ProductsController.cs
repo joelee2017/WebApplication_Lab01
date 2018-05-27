@@ -8,6 +8,7 @@ using WebApplication_Lab01.Models;
 using PagedList;
 using WebApplication_Lab01.Models.Interface;
 using WebApplication_Lab01.Models.Repository;
+using WebApplication_Lab01.Models.Service;
 
 namespace WebApplication_Lab01.Controllers
 {
@@ -16,6 +17,7 @@ namespace WebApplication_Lab01.Controllers
         private IProductRepository productRepository;
         private ICategoryRepository categoryRepository;
         private ISupplierRepository supplierRepository;
+        private IProductService productService;
 
         public IEnumerable<Categories> Categories
         {
@@ -37,6 +39,7 @@ namespace WebApplication_Lab01.Controllers
             this.productRepository = new ProductRepository();
             this.categoryRepository = new CategoryRepository();
             this.supplierRepository = new SupplierRepository();
+            this.productService = new ProductService();
         }
 
         // GET: Products
@@ -61,10 +64,10 @@ namespace WebApplication_Lab01.Controllers
             
             if (!String.IsNullOrEmpty(searchString))
             {
-                result = this.productRepository.Search(searchString);
+                result = this.productService.Search(searchString);
             }
 
-            result = this.productRepository.SortOrder(sortOrder);
+            result = this.productService.SortOrder(sortOrder);
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);            

@@ -17,10 +17,6 @@ namespace WebApplication_Lab01.Models.Interface
 
         IQueryable<Products> GetAll();
 
-        IQueryable<Products> Search(string productName);
-
-        IQueryable<Products> SortOrder(string sortOrder);
-
         void SaveChanges();
     }
 }
