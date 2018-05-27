@@ -97,24 +97,19 @@ namespace WebApplication_Lab01.Models.Repository
           return  db.Products.Where(s => s.ProductName.Contains(productName));
         }
 
-        IQueryable<Products> SortOrder(string sortOrder)
+        public IQueryable<Products> SortOrder(string sortOrder)
         {
             switch (sortOrder)
             {
                 case "ProductName_desc":
-                    db.Products.OrderByDescending(s => s.ProductName);
-                    break;
+                    return db.Products.OrderByDescending(s => s.ProductName);
                 case "UnitPrice":
-                    db.Products.OrderBy(s => s.UnitPrice);
-                    break;
+                    return db.Products.OrderBy(s => s.UnitPrice);
                 case "UnitPrice_desc":
-                    db.Products.OrderByDescending(s => s.UnitPrice);
-                    break;
+                    return db.Products.OrderByDescending(s => s.UnitPrice);
                 default:
-                    db.Products.OrderBy(s => s.ProductName);
-                    break;
+                    return  db.Products.OrderBy(s => s.ProductName);
             }
-          
         }
     }
 }

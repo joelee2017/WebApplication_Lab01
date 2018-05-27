@@ -66,22 +66,6 @@ namespace WebApplication_Lab01.Controllers
 
             result = this.productRepository.SortOrder(sortOrder);
 
-            //switch (sortOrder)
-            //{
-            //    case "ProductName_desc":
-            //        result = result.OrderByDescending(s => s.ProductName);
-            //        break;
-            //    case "UnitPrice":
-            //        result = result.OrderBy(s => s.UnitPrice);
-            //        break;
-            //    case "UnitPrice_desc":
-            //        result = result.OrderByDescending(s => s.UnitPrice);
-            //        break;
-            //    default:
-            //        result = result.OrderBy(s => s.ProductName);
-            //        break;
-            //}
-
             int pageSize = 5;
             int pageNumber = (page ?? 1);            
             return View(result.ToPagedList(pageNumber, pageSize));
