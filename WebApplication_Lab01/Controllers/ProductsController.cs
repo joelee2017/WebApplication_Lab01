@@ -13,8 +13,6 @@ namespace WebApplication_Lab01.Controllers
 {
     public class ProductsController : Controller
     {
-        NorthwindEntities db = new NorthwindEntities();
-
         private IProductRepository productRepository;
         private ICategoryRepository categoryRepository;
         private ISupplierRepository supplierRepository;
@@ -58,12 +56,11 @@ namespace WebApplication_Lab01.Controllers
             ViewBag.ProductNameSortParm = String.IsNullOrEmpty(sortOrder) ?  "ProductName_desc" : "";
             ViewBag.UnitPriceSortParm = sortOrder == "UnitPrice" ? "UnitPrice_desc" : "UnitPrice";
 
-            IQueryable<Products> result = db.Products;
+            IQueryable<Products> result = this.productRepository.GetAll();
 
-
+            
             if (!String.IsNullOrEmpty(searchString))
             {
-                //抽換  db.Products.Where(s => s.ProductName.Contains(searchString));
                 result = this.productRepository.Search(searchString);
             }
 
@@ -90,7 +87,6 @@ namespace WebApplication_Lab01.Controllers
 
         public ActionResult Details(int id =0)
         {
-            //抽換 db.Products.Find(id);
             Products products = this.productRepository.Get(id);
             if(products == null)
             {
@@ -102,7 +98,6 @@ namespace WebApplication_Lab01.Controllers
 
         public ActionResult Create()
         {
-            //抽換 db.Suppliers db.Categories
             ViewBag.SupplierID = new SelectList(this.Suppliers, "SupplierID", "CompanyName");
             ViewBag.CategoryID = new SelectList(this.Categories, "CategoryID", "CategoryName");           
             return View();
@@ -114,10 +109,6 @@ namespace WebApplication_Lab01.Controllers
 
             if (ModelState.IsValid)
             {
-                //抽換
-                //db.Products.Add(products);
-                //db.SaveChanges();
-
                 this.productRepository.Create(products);
                 return RedirectToAction("Index");
             }
@@ -129,7 +120,6 @@ namespace WebApplication_Lab01.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            //抽換 db.Products.Find(id);
             Products products = this.productRepository.Get(id);
             if(products == null)
             {
@@ -145,10 +135,6 @@ namespace WebApplication_Lab01.Controllers
         {
             if (ModelState.IsValid)
             {
-                //抽換
-                //db.Entry(products).State = EntityState.Modified;
-                //db.SaveChanges();
-
                 this.productRepository.Update(products);
                 return RedirectToAction("Index");
             }
@@ -160,7 +146,6 @@ namespace WebApplication_Lab01.Controllers
         
         public ActionResult Delete(int id =0)
         {
-            //抽換 db.Products.Find(id);
             Products products = this.productRepository.Get(id);
             if(products == null)
             {
@@ -172,10 +157,7 @@ namespace WebApplication_Lab01.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            //抽換 db.Products.Find(id);
             Products products = this.productRepository.Get(id);
-            //db.Products.Remove(products);
-            //db.SaveChanges();
             this.productRepository.Delete(products);
             return RedirectToAction("Index");
         }
