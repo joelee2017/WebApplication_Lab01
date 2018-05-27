@@ -64,21 +64,23 @@ namespace WebApplication_Lab01.Controllers
                 result = this.productRepository.Search(searchString);
             }
 
-            switch (sortOrder)
-            {
-                case "ProductName_desc":
-                    result = result.OrderByDescending(s => s.ProductName);
-                    break;
-                case "UnitPrice":
-                    result = result.OrderBy(s => s.UnitPrice);
-                    break;
-                case "UnitPrice_desc":
-                    result = result.OrderByDescending(s => s.UnitPrice);
-                    break;
-                default:
-                    result = result.OrderBy(s => s.ProductName);
-                    break;
-            }
+            result = this.productRepository.SortOrder(sortOrder);
+
+            //switch (sortOrder)
+            //{
+            //    case "ProductName_desc":
+            //        result = result.OrderByDescending(s => s.ProductName);
+            //        break;
+            //    case "UnitPrice":
+            //        result = result.OrderBy(s => s.UnitPrice);
+            //        break;
+            //    case "UnitPrice_desc":
+            //        result = result.OrderByDescending(s => s.UnitPrice);
+            //        break;
+            //    default:
+            //        result = result.OrderBy(s => s.ProductName);
+            //        break;
+            //}
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);            
@@ -106,7 +108,6 @@ namespace WebApplication_Lab01.Controllers
         [HttpPost]
         public ActionResult Create(Products products)
         {
-
             if (ModelState.IsValid)
             {
                 this.productRepository.Create(products);
