@@ -14,31 +14,29 @@ namespace WebApplication_Lab01.Controllers
 {
     public class ProductsController : Controller
     {
-        private IProductRepository productRepository;
-        private ICategoryRepository categoryRepository;
-        private ISupplierRepository supplierRepository;
+        private ICategoryService categoryService;
+        private ISupplierService supplierService;
         private IProductService productService;
 
         public IEnumerable<Categories> Categories
         {
             get
             {
-                return categoryRepository.GetAll();
+                return categoryService.GetAll();
             }
         }
         public IEnumerable<Suppliers> Suppliers
         {
             get
             {
-                return supplierRepository.GetAll();
+                return supplierService.GetAll();
             }
         }
 
         public ProductsController()
         {
-            //this.productRepository = new ProductRepository();
-            this.categoryRepository = new CategoryRepository();
-            this.supplierRepository = new SupplierRepository();
+            this.categoryService = new CategoryService();
+            this.supplierService = new SupplierService();
             this.productService = new ProductService();
         }
 
@@ -76,7 +74,7 @@ namespace WebApplication_Lab01.Controllers
 
         public ActionResult Details(int id =0)
         {
-            Products products = this.productRepository.Get(id);
+            Products products = this.productService.Get(id);
             if(products == null)
             {
                 return HttpNotFound();
@@ -97,7 +95,7 @@ namespace WebApplication_Lab01.Controllers
         {
             if (ModelState.IsValid)
             {
-                this.productRepository.Create(products);
+                this.productService.Create(products);
                 return RedirectToAction("Index");
             }
             ViewBag.SupplierID = new SelectList(this.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
@@ -108,7 +106,7 @@ namespace WebApplication_Lab01.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Products products = this.productRepository.Get(id);
+            Products products = this.productService.Get(id);
             if(products == null)
             {
                 return HttpNotFound();
@@ -123,7 +121,7 @@ namespace WebApplication_Lab01.Controllers
         {
             if (ModelState.IsValid)
             {
-                this.productRepository.Update(products);
+                this.productService.Update(products);
                 return RedirectToAction("Index");
             }
             ViewBag.SupplierID = new SelectList(this.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
@@ -134,7 +132,7 @@ namespace WebApplication_Lab01.Controllers
         
         public ActionResult Delete(int id =0)
         {
-            Products products = this.productRepository.Get(id);
+            Products products = this.productService.Get(id);
             if(products == null)
             {
                 return HttpNotFound();
@@ -145,8 +143,8 @@ namespace WebApplication_Lab01.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Products products = this.productRepository.Get(id);
-            this.productRepository.Delete(products);
+            Products products = this.productService.Get(id);
+            this.productService.Delete(products);
             return RedirectToAction("Index");
         }
         //==============================================================================

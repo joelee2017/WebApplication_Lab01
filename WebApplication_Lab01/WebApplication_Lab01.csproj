@@ -228,8 +228,12 @@
     <Compile Include="Models\Repository\CategoryRepository.cs" />
     <Compile Include="Models\Repository\ProductRepository.cs" />
     <Compile Include="Models\Repository\SupplierRepository.cs" />
-    <Compile Include="Models\Service\IProductService.cs" />
+    <Compile Include="Models\Service\CategoryService.cs" />
+    <Compile Include="Models\Interface\ICategoryService.cs" />
+    <Compile Include="Models\Interface\IProductService.cs" />
+    <Compile Include="Models\Interface\ISupplierService.cs" />
     <Compile Include="Models\Service\ProductService.cs" />
+    <Compile Include="Models\Service\SupplierService.cs" />
     <Compile Include="Models\Suppliers.cs">
       <DependentUpon>NorthWind.tt</DependentUpon>
     </Compile>

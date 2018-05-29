@@ -9,16 +9,6 @@ namespace WebApplication_Lab01.Models.Service
 {
     public class ProductService : ProductRepository,IProductService
     {
-        //protected NorthwindEntities db
-        //{
-        //    get;
-        //    private set;
-        //}
-
-        //public ProductService()
-        //{
-        //    this.db = new NorthwindEntities();
-        //}
 
         public IQueryable<Products> Search(string productName)
         {
@@ -40,22 +30,5 @@ namespace WebApplication_Lab01.Models.Service
             }
         }
 
-        //public void Dispose()
-        //{
-        //    this.Dispose(true);
-        //    GC.SuppressFinalize(this);
-        //}
-
-        //protected virtual void Dispose(bool disposing)
-        //{
-        //    if(disposing)
-        //    {
-        //        if(this.db != null)
-        //        {
-        //            this.db.Dispose();
-        //            this.db = null;
-        //        }
-        //    }
-        //}
     }
 }
