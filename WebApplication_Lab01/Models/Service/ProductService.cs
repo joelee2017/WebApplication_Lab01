@@ -12,7 +12,7 @@ namespace WebApplication_Lab01.Models.Service
 
         public IQueryable<Products> Search(string productName)
         {
-            return db.Products.Where(s => s.ProductName.Contains(productName));
+            return db.Products.Where(s => s.ProductName.Contains(productName)).OrderBy(s => s.ProductName);
         }
 
         public IQueryable<Products> SortOrder(string sortOrder)

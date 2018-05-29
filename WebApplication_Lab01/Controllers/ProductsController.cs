@@ -62,10 +62,15 @@ namespace WebApplication_Lab01.Controllers
             
             if (!String.IsNullOrEmpty(searchString))
             {
-                result = this.productService.Search(searchString);
+                 result = this.productService.Search(searchString);
             }
-
-            result = this.productService.SortOrder(sortOrder);
+            else
+            {
+                result = this.productService.SortOrder(sortOrder);
+            }
+            
+            
+            
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);            
