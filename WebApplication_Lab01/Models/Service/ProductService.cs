@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebApplication_Lab01.Models.Interface;
+using WebApplication_Lab01.Models.Repository;
 
 namespace WebApplication_Lab01.Models.Service
 {
-    public class ProductService : IProductService,IDisposable
+    public class ProductService : ProductRepository,IProductService
     {
-        protected NorthwindEntities db
-        {
-            get;
-            private set;
-        }
+        //protected NorthwindEntities db
+        //{
+        //    get;
+        //    private set;
+        //}
 
-        public ProductService()
-        {
-            this.db = new NorthwindEntities();
-        }
+        //public ProductService()
+        //{
+        //    this.db = new NorthwindEntities();
+        //}
 
         public IQueryable<Products> Search(string productName)
         {
@@ -38,22 +40,22 @@ namespace WebApplication_Lab01.Models.Service
             }
         }
 
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        //public void Dispose()
+        //{
+        //    this.Dispose(true);
+        //    GC.SuppressFinalize(this);
+        //}
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if(disposing)
-            {
-                if(this.db != null)
-                {
-                    this.db.Dispose();
-                    this.db = null;
-                }
-            }
-        }
+        //protected virtual void Dispose(bool disposing)
+        //{
+        //    if(disposing)
+        //    {
+        //        if(this.db != null)
+        //        {
+        //            this.db.Dispose();
+        //            this.db = null;
+        //        }
+        //    }
+        //}
     }
 }

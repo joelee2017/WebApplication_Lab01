@@ -34,13 +34,13 @@ namespace WebApplication_Lab01.Controllers
             }
         }
 
-        //public ProductsController()
-        //{
-        //    this.productRepository = new ProductRepository();
-        //    this.categoryRepository = new CategoryRepository();
-        //    this.supplierRepository = new SupplierRepository();
-        //    this.productService = new ProductService();
-        //}
+        public ProductsController()
+        {
+            //this.productRepository = new ProductRepository();
+            this.categoryRepository = new CategoryRepository();
+            this.supplierRepository = new SupplierRepository();
+            this.productService = new ProductService();
+        }
 
         // GET: Products
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -59,7 +59,7 @@ namespace WebApplication_Lab01.Controllers
             ViewBag.ProductNameSortParm = String.IsNullOrEmpty(sortOrder) ?  "ProductName_desc" : "";
             ViewBag.UnitPriceSortParm = sortOrder == "UnitPrice" ? "UnitPrice_desc" : "UnitPrice";
 
-            IQueryable<Products> result = this.productRepository.GetAll();
+            IQueryable<Products> result = this.productService.GetAll();
 
             
             if (!String.IsNullOrEmpty(searchString))
