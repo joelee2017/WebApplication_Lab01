@@ -16,7 +16,7 @@ namespace WebApplication_Lab01.Controllers
     {
         private ICategoryService categoryService;
         private ISupplierService supplierService;
-        private IProductService productService;
+        private IProductService m_productService;
 
         public IEnumerable<Categories> Categories
         {
@@ -33,11 +33,11 @@ namespace WebApplication_Lab01.Controllers
             }
         }
         
-        public ProductsController()
+        public ProductsController(IProductService productService)
         {
             this.categoryService = new CategoryService();
             this.supplierService = new SupplierService();
-            this.productService = new ProductService();
+            m_productService = productService;
         }
 
         // GET: Products
@@ -57,16 +57,16 @@ namespace WebApplication_Lab01.Controllers
             ViewBag.ProductNameSortParm = String.IsNullOrEmpty(sortOrder) ?  "ProductName_desc" : "";
             ViewBag.UnitPriceSortParm = sortOrder == "UnitPrice" ? "UnitPrice_desc" : "UnitPrice";
 
-            IQueryable<Products> result = this.productService.GetAll();
+            IQueryable<Products> result = this.m_productService.GetAll();
 
             
             if (!String.IsNullOrEmpty(searchString))
             {
-                 result = this.productService.Search(searchString);
+                 result = this.m_productService.Search(searchString);
             }
             else
             {
-                result = this.productService.SortOrder(sortOrder);
+                result = this.m_productService.SortOrder(sortOrder);
             }          
             
             int pageSize = 5;
@@ -74,9 +74,9 @@ namespace WebApplication_Lab01.Controllers
             return View(result.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult Details(int id =0)
+        public ActionResult Details(int? id)
         {
-            Products products = this.productService.Get(id);
+            Products products = this.m_productService.GetByID(id.Value);
             if(products == null)
             {
                 return HttpNotFound();
@@ -97,7 +97,7 @@ namespace WebApplication_Lab01.Controllers
         {
             if (ModelState.IsValid)
             {
-                this.productService.Create(products);
+                this.m_productService.Create(products);
                 return RedirectToAction("Index");
             }
             ViewBag.SupplierID = new SelectList(this.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
@@ -106,9 +106,9 @@ namespace WebApplication_Lab01.Controllers
         }
         //==============================================================================
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int? id)
         {
-            Products products = this.productService.Get(id);
+            Products products = this.m_productService.GetByID(id.Value);
             if(products == null)
             {
                 return HttpNotFound();
@@ -123,7 +123,7 @@ namespace WebApplication_Lab01.Controllers
         {
             if (ModelState.IsValid)
             {
-                this.productService.Update(products);
+                this.m_productService.Update(products);
                 return RedirectToAction("Index");
             }
             ViewBag.SupplierID = new SelectList(this.Suppliers, "SupplierID", "CompanyName", products.SupplierID);
@@ -132,9 +132,9 @@ namespace WebApplication_Lab01.Controllers
         }
         //==============================================================================
         
-        public ActionResult Delete(int id =0)
+        public ActionResult Delete(int? id)
         {
-            Products products = this.productService.Get(id);
+            Products products = this.m_productService.GetByID(id.Value);
             if(products == null)
             {
                 return HttpNotFound();
@@ -145,8 +145,7 @@ namespace WebApplication_Lab01.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Products products = this.productService.Get(id);
-            this.productService.Delete(products);
+            this.m_productService.Delete(id);
             return RedirectToAction("Index");
         }
         //==============================================================================

@@ -83,27 +83,20 @@ namespace WebApplication_Lab01.Models.Service
             return this.d_productRepository.GetAll().Any(x => x.ProductID == productID);
         }
 
-        Products GetByID(int productID)
+        public Products GetByID(int productID)
         {
-            return this.d_productRepository.Get(x => x.ProductID == productID);
+            return this.d_productRepository.Get(productID);
         }
 
         public IQueryable<Products> GetAll()
         {
-            throw new NotImplementedException();
+            return this.d_productRepository.GetAll();
         }
 
         public IQueryable<Products> GetDefault()
         {
-            throw new NotImplementedException();
-        }
-
-        public IResult SaveChanges()
-        {
-            throw new NotImplementedException();
-        }
-
-      
+            return this.d_productRepository.GetDefault();
+        }      
 
         public IQueryable<Products> Search(string productName)
         {

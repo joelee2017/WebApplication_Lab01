@@ -20,8 +20,6 @@ namespace WebApplication_Lab01.Models.Service
 
         IQueryable<Products> GetDefault();
 
-        IResult SaveChanges();
-
         IQueryable<Products> Search(string productName);
 
         IQueryable<Products> SortOrder(string sortOrder);
