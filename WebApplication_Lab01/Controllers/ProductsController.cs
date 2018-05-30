@@ -32,7 +32,7 @@ namespace WebApplication_Lab01.Controllers
                 return supplierService.GetAll();
             }
         }
-
+        
         public ProductsController()
         {
             this.categoryService = new CategoryService();
@@ -67,11 +67,8 @@ namespace WebApplication_Lab01.Controllers
             else
             {
                 result = this.productService.SortOrder(sortOrder);
-            }
+            }          
             
-            
-            
-
             int pageSize = 5;
             int pageNumber = (page ?? 1);            
             return View(result.ToPagedList(pageNumber, pageSize));

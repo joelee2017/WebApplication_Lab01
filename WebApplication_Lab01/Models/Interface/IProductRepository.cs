@@ -17,6 +17,8 @@ namespace WebApplication_Lab01.Models.Interface
 
         IQueryable<Products> GetAll();
 
+        IQueryable<Products> GetDefault();
+
         void SaveChanges();
     }
 }

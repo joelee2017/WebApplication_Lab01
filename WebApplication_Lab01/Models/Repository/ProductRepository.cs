@@ -9,11 +9,7 @@ namespace WebApplication_Lab01.Models.Repository
 {
     public class ProductRepository : IProductRepository, IDisposable
     {
-        protected NorthwindEntities db
-        {
-            get;
-            private set;
-        }
+        protected NorthwindEntities db  {  get; private set; }
 
         public ProductRepository()
         {
@@ -64,6 +60,11 @@ namespace WebApplication_Lab01.Models.Repository
             return db.Products.FirstOrDefault(x => x.ProductID == productID);
         }
 
+        public IQueryable<Products> GetDefault()
+        {
+            return db.Products;
+        }
+
         public IQueryable<Products> GetAll()
         {
             return db.Products.Include(x => x.Categories).OrderByDescending(x => x.ProductID);
@@ -91,5 +92,6 @@ namespace WebApplication_Lab01.Models.Repository
                 }
             }
         }
+      
     }
 }
